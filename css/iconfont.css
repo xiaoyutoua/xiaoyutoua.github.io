@@ -1,0 +1,77 @@
+/* 存储博客的iconfont图标等 */
+
+@font-face {
+    font-family: "iconfont"; /* Project id 3829236 */
+    src: url('//at.alicdn.com/t/c/font_3829236_awqylr6a8h5.woff2?t=1671181361166') format('woff2'),
+         url('//at.alicdn.com/t/c/font_3829236_awqylr6a8h5.woff?t=1671181361166') format('woff'),
+         url('//at.alicdn.com/t/c/font_3829236_awqylr6a8h5.ttf?t=1671181361166') format('truetype');
+  }
+  
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-fenleiorguangchangorqita:before {
+    content: "\e64f";
+  }
+  
+  .icon-fenleiorguangchangorqitatianchong:before {
+    content: "\e67d";
+  }
+  
+  .icon-guanyuwomen:before {
+    content: "\e63e";
+  }
+  
+  .icon-xiewenzhang:before {
+    content: "\e645";
+  }
+  
+  .icon-aiqingniao:before {
+    content: "\e616";
+  }
+  
+  .icon-biaoqian:before {
+    content: "\e693";
+  }
+  
+  .icon-xiuxian:before {
+    content: "\e673";
+  }
+  
+  .icon-guidang:before {
+    content: "\e6fb";
+  }
+  
+  .icon-qita:before {
+    content: "\e87b";
+  }
+  
+  .icon-licai:before {
+    content: "\e602";
+  }
+  
+  .icon-aiqingwu:before {
+    content: "\e622";
+  }
+  
+  .icon-aiqingqinglv:before {
+    content: "\e701";
+  }
+  
+  .icon-pengyouquan:before {
+    content: "\100bd";
+  }
+  
+  .icon-aixin:before {
+    content: "\e85c";
+  }
+  
+  .icon-xiaowu:before {
+    content: "\e78e";
+    color:blue;
+  }
