@@ -3,7 +3,7 @@
 
 
 /*
-    此部分修改的是页面的页头和页脚显示透明，更美观
+    1.此部分修改的是页面的页头和页脚显示透明，更美观
 */
 /* 页脚与头图透明 */
 #footer {
@@ -31,7 +31,7 @@ background: transparent !important;
 
 
 /*
-    此部分代码是对首先分类磁贴1.0在夜间模式下的外观的修改
+    2.此部分代码是对首先分类磁贴1.0在夜间模式下的外观的修改
 */
 /* 小冰分类分类磁铁黑夜模式适配 */
 /* 一般状态 */
@@ -47,7 +47,7 @@ background: transparent !important;
 
 
 /*
-    设置字体
+    3.设置字体
 */
 @font-face {
     font-family: "仓耳渔阳体 W05";font-weight: 400;src: url("//at.alicdn.com/wf/webfont/SE6Q2VLzYKil/roZwi8MDONv1PXqk_XQPA.woff2") format("woff2"),
@@ -57,8 +57,9 @@ background: transparent !important;
 
 
 
+
 /*
-    导航栏的魔改
+    4.导航栏的魔改
 */
 /* 一级菜单居中 */
 #nav .menus_items {
@@ -80,8 +81,8 @@ background: transparent !important;
 
 
 /*
-  此部分代码作用为夜间模式菜单栏的小字的发光效果、
-  颜色可以自己指定，在下面rgb处修改即可
+  5.此部分代码作用为夜间模式菜单栏的小字的发光效果、
+    颜色可以自己指定，在下面rgb处修改即可
 */
 [data-theme="dark"] #nav .site-page,
 [data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li a {
@@ -95,7 +96,7 @@ background: transparent !important;
 
 
 /*
-  此部分代码为星空的css代码
+  6.此部分代码为星空的css代码
 */
 /* 背景宇宙星光  */
 #universe{
@@ -120,7 +121,7 @@ background: transparent !important;
 
 
 /* 
-  侧边栏个人信息卡片动态渐变色
+  7.侧边栏个人信息卡片动态渐变色
 */
 #aside-content > .card-widget.card-info {
   background: linear-gradient(
@@ -171,14 +172,141 @@ background: transparent !important;
     background-position: 0% 50%;
   }
 }
-
 /* 黑夜模式适配 */
 [data-theme="dark"] #aside-content > .card-widget.card-info {
   background: #191919ee;
 }
-
 /* 个人信息Follow me按钮 */
 #aside-content > .card-widget.card-info > #card-info-btn {
   background-color: #3eb8be;
   border-radius: 8px;
+}
+
+
+
+/*
+\   8.博客宽屏适配
+*/
+/* 全局宽度 */
+.layout {
+  max-width: 1400px;
+}
+
+/* 侧边卡片栏宽度 */
+.aside-content {
+  max-width: 318px;
+  min-width: 300px;
+}
+
+/* 平板尺寸自适应(不启用侧边栏宽度限制) */
+@media screen and (max-width: 900px) {
+  .aside-content {
+    max-width: none !important;
+    padding: 0 5px 0 5px;
+  }
+}
+
+
+
+
+
+
+/* 
+  9.个人信息卡片背景图
+ */
+[data-theme="light"] #aside-content > .card-widget.card-info {
+  background-image: url(https://picbed.dai2yutou.space/web_img/6.png);
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: 100%;
+}
+[data-theme="dark"] #aside-content > .card-widget.card-info {
+  background-image: url(https://picbed.dai2yutou.space/web_img/6.png);
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: 100%;
+}
+
+
+
+/* 
+  10.页面样式调节
+ */
+:root {
+  --trans-light: rgba(255, 255, 255, 0.88);
+  --trans-dark: rgba(25, 25, 25, 0.88);
+  --border-style: 1px solid rgb(169, 169, 169);
+  --backdrop-filter: blur(5px) saturate(150%);
+}
+
+/* 首页文章卡片 */
+#recent-posts > .recent-post-item {
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border-radius: 25px;
+  border: var(--border-style);
+}
+
+/* 首页侧栏卡片 */
+#aside-content .card-widget {
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border-radius: 18px;
+  border: var(--border-style);
+}
+
+/* 文章页、归档页、普通页面 */
+div#post,
+div#page,
+div#archive {
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border: var(--border-style);
+  border-radius: 20px;
+}
+
+/* 导航栏 */
+#page-header.nav-fixed #nav {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+[data-theme="dark"] #page-header.nav-fixed #nav {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* 夜间模式遮罩 */
+[data-theme="dark"] #recent-posts > .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] div#post,
+[data-theme="dark"] div#archive,
+[data-theme="dark"] div#page {
+  background: var(--trans-dark);
+}
+
+
+/* 夜间模式页脚页头遮罩透明 */
+[data-theme="dark"] #footer::before {
+  background: transparent !important;
+}
+[data-theme="dark"] #page-header::before {
+  background: transparent !important;
+}
+
+/* 阅读模式 */
+.read-mode #aside-content .card-widget {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+.read-mode div#post {
+  background: rgba(158, 204, 171, 0.5) !important;
+}
+
+/* 夜间模式下的阅读模式 */
+[data-theme="dark"] .read-mode #aside-content .card-widget {
+  background: rgba(25, 25, 25, 0.9) !important;
+  color: #ffffff;
+}
+[data-theme="dark"] .read-mode div#post {
+  background: rgba(25, 25, 25, 0.9) !important;
+  color: #ffffff;
 }
