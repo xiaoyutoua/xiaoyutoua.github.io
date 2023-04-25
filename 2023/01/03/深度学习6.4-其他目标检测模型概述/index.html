@@ -1,0 +1,510 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>深度学习6.4-其他目标检测模型概述 | 小漁头|小戴</title><meta name="author" content="小漁头&amp;小戴"><meta name="copyright" content="小漁头&amp;小戴"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="本文是深度学习的第十六篇，本文介绍其他有关计算机视觉的目标检测模型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习6.4-其他目标检测模型概述">
+<meta property="og:url" content="http://blog.dai2yutou.space/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.4-%E5%85%B6%E4%BB%96%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="小漁头|小戴">
+<meta property="og:description" content="本文是深度学习的第十六篇，本文介绍其他有关计算机视觉的目标检测模型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picbed.dai2yutou.space/web_img/19.png">
+<meta property="article:published_time" content="2023-01-03T13:06:30.000Z">
+<meta property="article:modified_time" content="2023-03-30T12:13:07.997Z">
+<meta property="article:author" content="小漁头&amp;小戴">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="paddle">
+<meta property="article:tag" content="深度学习高级_计算机视觉之目标检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picbed.dai2yutou.space/web_img/19.png"><link rel="shortcut icon" href="/img/basketball.png"><link rel="canonical" href="http://blog.dai2yutou.space/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.4-%E5%85%B6%E4%BB%96%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小漁头&小戴","link":"链接: ","source":"来源: 小漁头|小戴","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习6.4-其他目标检测模型概述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-30 20:13:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/css.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/at.alicdn.com/t/c/font_3829236_a49e40pee5.css"><link rel="stylesheet" href="/css/font-awesome.css"><link rel="stylesheet" href="/css/progress_bar.css"><link rel="stylesheet" href="/css/nav_menu.css"><link rel="stylesheet" href="/css/color.css"><link rel="apple-touch-icon" href="/img/apple-touch-icon.jpg"><meta name="apple-mobile-web-app-title" content="小漁头🏀"><link rel="bookmark" href="/img/apple-touch-icon.jpg"><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/apple-touch-icon.jpg" ><link rel="stylesheet" href="/css/card_author.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><link rel="stylesheet" href="https://www.fomal.cc/static/css/runtime.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (ture) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.dai2yutou.space/"><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw hide"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 📦归档</span></a></li><li><a class="site-page child" href="/tags/"><span> 🔖标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 📂分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw hide"></i><span> 万花筒</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E5%94%A0%E5%97%91/"><span> 💭唠嗑</span></a></li><li><a class="site-page child" href="/HTML/%E6%96%B0%E5%B9%B4%E5%80%92%E8%AE%A1%E6%97%B6/index.html"><span> 🔐项目</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/love/"><span> 恋爱小屋</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E8%A3%85%E4%BF%AE%E6%97%A5%E5%BF%97/"><span> ⏰装修日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picbed.dai2yutou.space/web_img/19.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小漁头|小戴</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.dai2yutou.space/"><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw hide"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 📦归档</span></a></li><li><a class="site-page child" href="/tags/"><span> 🔖标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 📂分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw hide"></i><span> 万花筒</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E5%94%A0%E5%97%91/"><span> 💭唠嗑</span></a></li><li><a class="site-page child" href="/HTML/%E6%96%B0%E5%B9%B4%E5%80%92%E8%AE%A1%E6%97%B6/index.html"><span> 🔐项目</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/love/"><span> 恋爱小屋</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 网站</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E8%A3%85%E4%BF%AE%E6%97%A5%E5%BF%97/"><span> ⏰装修日志</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深度学习6.4-其他目标检测模型概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-03T13:06:30.000Z" title="发表于 2023-01-03 21:06:30">2023-01-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-30T12:13:07.997Z" title="更新于 2023-03-30 20:13:07">2023-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习6.4-其他目标检测模型概述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1><strong>其他目标检测模型概述</strong></h1>
+<p>目标检测是计算机视觉领域中的一个重要研究方向，也是其他复杂视觉任务的基础。 给定一张图像，我们可以通过目标检测来对图像中物体的位置进行检测，同时判断物体的类别。</p>
+<p>根据算法的流程可以将目标检测算法分为两种流派，一种是以Faster R-CNN为代表的Two-Stage算法，另一种是以SSD、YOLO为代表的One-Stage算法。</p>
+<ul>
+<li>Two-Stage算法：先进行<strong>区域生成（Region Proposal,RP）</strong>(一个可能包含待检测物体的预选框)，再通过卷积神经网络进行样本分类。任务：特征提取-&gt;生成RP-&gt;分类/定位回归。</li>
+<li>One-Stage算法：不用RP，直接在网络中提取特征来预测物体分类和位置。任务：特征提取-&gt;分类/定位回归。</li>
+</ul>
+<p>两种方式各有各的特别，Two-Stage很明显检测的精度要高一点，但是检测速度慢；One-Stage放弃了高精度，但是换来了速度，速度比Two-Stage算法快很多。</p>
+<h2 id="一、传统目标检测算法">一、传统目标检测算法</h2>
+<p>传统目标检测主要分为以下几个步骤，如下图所示：</p>
+<p>（1）输入一张图片；生成一系列候选框；</p>
+<p>（2）对候选框进行特征提取；</p>
+<p>（3）使用分类器对框内物体类别判断；</p>
+<p>（4）使用NMS非极大值抑制来筛选最优的框</p>
+<p><br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/83d9a3d0d07b442489766dcd3a3dff750f70cff2020041f09c785d7fb1adce92" width = "800"></center>
+<center><br>图1：传统目标检测算法检测示意图</br></center>
+<p><br></br></p>
+<h2 id="二、Two-stage-目标检测算法">二、Two stage 目标检测算法</h2>
+<h3 id="1）R-CNN"><strong>1）R-CNN</strong></h3>
+<p>R-CNN（Region with CNN Feature）2014年提出，在此之前都是传统的目标检测算法，人为定义特征进行检测，进入了瓶颈期，进步缓慢，R-CNN出来之后将目标检测领域的准确率至少提高了30%，是第一个成功将深度学习应用到目标检测上的算法。R-CNN基于卷积神经网络(CNN)，线性回归，和<a target="_blank" rel="noopener" href="https://shao12138.blog.csdn.net/article/details/121164645?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-121164645-blog-125703635.pc_relevant_3mothn_strategy_recovery&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-121164645-blog-125703635.pc_relevant_3mothn_strategy_recovery&amp;utm_relevant_index=1">支持向量机(SVM)</a>等算法，实现目标检测技术。</p>
+<p>R-CNN作为R-CNN系列的第⼀代算法，其实没有过多的使用“深度学习”思想，而是将“深度学习”和传统的“计算机视觉”的知识相结合。R-CNN算法流程可分为四个步骤：</p>
+<ol>
+<li>一张图像生成1k~2k个候选区域（Selective Search方法）；</li>
+<li>对每个候选区域，使用深度网络提取特征；</li>
+<li>特征送入每一类的SVM分类器，判断是否属于该类；</li>
+<li>使用回归器精细修正候选框位置。例如对于每个框，回归器预测其与真实框的距离差距(左上角与右下角点坐标)。<br>
+<br></br></li>
+</ol>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/02e51c65e5f945a1b02a9447790273192f71fab6e5c04c2b8b4cdbeedc74ed2e" width = "800"></center>
+<center><br>图2：R-CNN</br></center>
+<p><br></br></p>
+<hr>
+<p><strong>选择性搜索算法（Selective Search,SS）</strong>：算法原理如下：首先将每个像素作为一组。然后，计算每一组的纹理，并将两个最接近的组结合起来。但是为了避免单个区域吞噬其他区域，我们首先对较小的组进行分组。我们继续合并区域，直到所有区域都结合在一起。下图第一行展示了如何使区域增长，第二行中的蓝色矩形代表合并过程中所有可能的 ROI。与寻找几乎个区域比起来，这种方法要高效的多。<br>
+<br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/329f7fc53a3e48dcbbf863965a5826435db95b4dd2ba4b3588760dca6d509d52" width = "800"></center>
+<center><br>图3：Selective Search算法应用</br></center>
+<p><br></br></p>
+<hr>
+<p>R-CNN存在以下问题：</p>
+<ul>
+<li>测试速度慢，测试一张图片约53s（CPU），用SS算法提取候选框用时约2秒（相对较快），一张图片内候选框之间存在大量重叠，提取特征操作冗余。</li>
+<li>训练速度慢，过程繁琐。</li>
+<li>训练所需空间大，需要从每个图像中的每个目标候选框提取特征，并写入磁盘，对于非常深的网络，提取特征需要数百GB的存储空间。</li>
+</ul>
+<h3 id="2）Fast-R-CNN"><strong>2）Fast R-CNN</strong></h3>
+<p>R-CNN 需要非常多的候选区域以提升准确度，但其实有很多区域是彼此重叠的。如果我们有 2000 个候选区域，且每一个都需要独立地馈送到 CNN 中，那么对于不同的 ROI，我们可能需要重复提取很多次特征。因此 R-CNN 的训练和预测速度非常慢。</p>
+<p>我们知道，CNN 中的特征图以一种密集的方式表征空间特征，那么我们能直接使用特征图代替原图来检测目标吗？答案是肯定的。</p>
+<p>Fast R-CNN 使用CNN网络先提取整个图像的特征，而不是对每个图像块提取多次。然后，我们可以将创建候选区域的方法直接应用到提取到的特征图上。例如，Fast R-CNN 选择了 VGG16 中的卷积层 conv5 来生成 ROI区域在对应的特征图上的映射特征图块，并用于目标检测任务中。我们使用 ROI 池化将特征图块转换为固定的大小，并送到全连接层进行分类和定位。因为 Fast-RCNN 不会重复提取特征，所以它能显著地减少处理时间。</p>
+<p><br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/06f66759af814e7e81a495e5a47e1a2f4eb9880d25f34deca82d393238bb18c3" width = "800"></center>
+<center><br>图4：Fast R-CNN</br></center>
+<p><br></br></p>
+<hr>
+<p><strong>感兴趣区域池化（ROI pooling）</strong>：</p>
+<p>因为 Fast R-CNN 使用全连接层，所以我们应用感兴趣区域池化将不同大小的 ROI 转换为固定大小。感兴趣区域池化从具有多个卷积和最大池层的深度卷积网络获得的固定大小的特征映射。比如我们将 8×8 特征图转换为预定义的 2×2 大小：</p>
+<p><br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/8ab4b968df8249a28fb6cd32cb9a3d4e0e1d2b69da984c5390a5d361df1df908" width = "600"></center>
+<center><br>图5：ROI pooling的应用</br></center>
+<p><br></br></p>
+<ul>
+<li>左上角：输入特征图；</li>
+<li>右上角：将 ROI（蓝色区域即候选区域）与特征图重叠；</li>
+<li>左下角：将 ROI 拆分为目标维度。例如，对于 2×2 目标，我们将 ROI 分割为 4 个大小相似或相等的部分；</li>
+<li>右下角：找到每个部分的最大值，得到变换后的特征图。</li>
+</ul>
+<p>按上述步骤得到一个 2×2 的特征图块，可以送至分类器和边界框回归器中。使用softmax损失进行分类；使用回归损失校正预测框。总损失是两部分的和，然后反向传播进行训练。</p>
+<hr>
+<p>Fast R-CNN 最重要的一点就是包含特征提取器、分类器和边界框回归器在内的整个网络能通过多任务损失函数进行端到端的训练，这种多任务损失即结合了分类损失和定位损失的方法，大大提升了模型准确度。同时Fast R-CNN重新使用卷积网络中的特征映射，显着加快训练和测试效率。</p>
+<h3 id="3）Faster-R-CNN"><strong>3）Faster R-CNN</strong></h3>
+<p>Fast R-CNN 依赖于外部候选区域方法，如选择性搜索。但这些算法在 CPU 上运行且速度很慢。</p>
+<p>与其使用固定的算法得到候选区域，不如让网络自己学习自己的候选区域应该是什么。因此，Faster R-CNN 采用与 Fast R-CNN 相同的设计，只是它用<strong>区域生成网络（Region Proposal Network，RPN）</strong> 代替了候选区域方法。新的候选区域网络（RPN）在生成 ROI 时效率更高，并且以每幅图像 10 毫秒的速度运行。RPN的引入，可以说是真正意义上把目标检测整个流程融入到一个神经网络中。<br>
+<br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/98e9c780a50a4194ab988a16f0f5c0196b0a118f775447edbecbfdaebe45fc17" width = "800"></center>
+<center><br>图6：Faster R-CNN</br></center>
+<p><br></br></p>
+<hr>
+<p><strong>区域生成网络（RPN）</strong>:</p>
+<p>区域生成网络用于生成候选区域（proposals），该层通过一组固定的尺寸和比例得到一组锚点（anchors）,通过softmax判断锚点属于前景或背景，再利用区域回归修正锚点从而获得精确的候选区域。包括以下部分：</p>
+<ul>
+<li>生成 anchor boxes</li>
+<li>判断每个 anchor box 为 foreground(包含物体) 或者 background(背景) ，二分类</li>
+<li>边界框回归(bounding box regression) 对 anchor box 进行微调，使得预测框和真实框更加接近</li>
+</ul>
+<p><br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/f118bdb7042d4a579048542299d6434a0287731b7c8c434aa22eda60bc04dea8" width = "800"></center>
+<center><br>图7：区域生成网络的应用</br></center>
+<p><br></br></p>
+<hr>
+<p>Faster RCNN 与 SSD 的 anchors 区别在于：</p>
+<p>（1）前者在一个特征图上预设了 anchor，先进行初步修正与筛选，之后再进行分类与回归</p>
+<p>（2）后者在多个特征图上预设了 anchor（多尺度），并直接在所有这些anchor上进行分类与回归（单阶段）</p>
+<h2 id="三、One-Stage-目标检测算法">三、One-Stage 目标检测算法</h2>
+<p>SSD（Single-Shot MultiBox Detector），使用 VGG19 网络作为特征提取器（和 Faster R-CNN 中使用的 CNN 一样）的单次检测器，即将提取物体位置和判断物体类别融合在一起进行，其最主要的特点是识别器用于判断物体的特征不仅仅来自于神经网络的输出，还来自于神经网络的中间结果。</p>
+<p><br></br></p>
+<center><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ai-studio-static-online.cdn.bcebos.com/a54cb5d12e3e45d49047359dd6cee691322e77af07cf4e208ac66230341534c2" width = "800"></center>
+<center><br>图8：SSD</br></center>
+<p><br></br></p>
+<p>SSD是YOLO之后又一个引人注目的目标检测结构，它沿用了YOLO中直接回归 bbox和分类概率的方法，同时又参考了Faster R-CNN，大量使用anchor来提升识别准确度。通过把这两种结构相结合，SSD保持了很高的识别速度，还能把mAP提升到较高的水平。</p>
+<h2 id="四、小结">四、小结</h2>
+<ul>
+<li>R-CNN 对图像选取若干提议区域，使用卷积神经网络对每个提议区域执行前向传播以抽取其特征，然后再用这些特征来预测提议区域的类别和边界框。</li>
+<li>Fast R-CNN 对 R-CNN 的一个主要改进：只对整个图像做卷积神经网络的前向传播。它还引入了兴趣区域池化层，从而为具有不同形状的兴趣区域抽取相同形状的特征。</li>
+<li>Faster R-CNN 将 Fast R-CNN 中使用的选择性搜索替换为参与训练的区域生成网络（RPN），这样后者可以在减少提议区域数量的情况下仍保证目标检测的精度。</li>
+<li>单发多框检测（SSD）是一种多尺度目标检测模型。基于基础网络块和各个多尺度特征块，单发多框检测生成不同数量和不同大小的锚框，并通过预测这些锚框的类别和偏移量检测不同大小的目标。<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/projectdetail/4880934">https://aistudio.baidu.com/aistudio/projectdetail/4880934</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.dai2yutou.space">小漁头&amp;小戴</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.dai2yutou.space/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.4-%E5%85%B6%E4%BB%96%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/">http://blog.dai2yutou.space/2023/01/03/深度学习6.4-其他目标检测模型概述/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.dai2yutou.space" target="_blank">小漁头|小戴</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/paddle/">paddle</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%AB%98%E7%BA%A7-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B9%8B%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">深度学习高级_计算机视觉之目标检测</a></div><div class="post_share"><div class="social-share" data-image="https://picbed.dai2yutou.space/web_img/19.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.3-YOLOv3%E5%AE%9E%E7%8E%B0AI%E8%AF%86%E8%99%AB%EF%BC%88%E4%B8%8B%EF%BC%89/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习6.3-YOLOv3实现AI识虫（下）</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/04/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A07-1-%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深度学习7.1-图像分割任务的实现</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.1-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="深度学习6.1-目标检测基本概念"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">深度学习6.1-目标检测基本概念</div></div></a></div><div><a href="/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.2-YOLOv3%E5%AE%9E%E7%8E%B0AI%E8%AF%86%E8%99%AB%EF%BC%88%E4%B8%8A%EF%BC%89/" title="深度学习6.2-YOLOv3实现AI识虫（上）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">深度学习6.2-YOLOv3实现AI识虫（上）</div></div></a></div><div><a href="/2023/01/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A06.3-YOLOv3%E5%AE%9E%E7%8E%B0AI%E8%AF%86%E8%99%AB%EF%BC%88%E4%B8%8B%EF%BC%89/" title="深度学习6.3-YOLOv3实现AI识虫（下）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">深度学习6.3-YOLOv3实现AI识虫（下）</div></div></a></div><div><a href="/2022/12/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A01.1-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/" title="深度学习1.1-深度学习概论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-18</div><div class="title">深度学习1.1-深度学习概论</div></div></a></div><div><a href="/2022/12/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02.1-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="深度学习2.1-线性回归模型的实现"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-20</div><div class="title">深度学习2.1-线性回归模型的实现</div></div></a></div><div><a href="/2022/12/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02.2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1/" title="深度学习2.2-神经网络中的分类任务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-20</div><div class="title">深度学习2.2-神经网络中的分类任务</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="animate__fadeIn card-info card-widget wow" data-wow-delay="0" data-wow-duration="" data-wow-iteration="" data-wow-offset="" style="visibility: visible; animation-name: fadeIn;"><div class="author-info-top"><div class="card-info-avatar"><a class="avatar-img" data-pjax-state="" href="/about"><img class="entered loaded" alt="avatar" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apple-touch-icon.jpg" onerror="this.onerror=null,this.src=&quot;/img/friend_404.gif&quot;"/></a><div class="author-status-box"><div class="author-status"><g-emoji class="g-emoji" alias="palm_tree" fallback-src="/img/tree_icon.png">🐟</g-emoji><span>摸鱼中~</span></div></div></div></div><div class="author-info__sayhi" id="author-info__sayhi">晚安😴！我是</div><h1 class="author-info__name">XiaoYutou|XiaoDai</h1><div class="author-info__description">热爱生活点滴，分享时刻精彩。</div><a id="card-info-btn" data-pjax-state="" onclick="pjax.loadUrl(/about/)"><i></i><span style="padding-left:32px;font-weight:600;font-size:large">了解更多<i class="faa-passing animated" style="padding-left:-2px;display:inline-block;vertical-align:middle;"><span style="height:28px;width:28px;fill:currentColor;position:relative;top:-1.5px">💨</span></i></span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xiaoyutoua" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2143191301@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名:<a target="_blank" rel="noopener" href="https://www.dai2yutou.space">小漁头|小戴</a><br><span>技术问题欢迎交流🧐</span><span color="#3eb8be">VX:yuguolong_001</span></center></div><div id="welcome-info"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">其他目标检测模型概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95"><span class="toc-text">一、传统目标检测算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Two-stage-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95"><span class="toc-text">二、Two stage 目标检测算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%89R-CNN"><span class="toc-text">1）R-CNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%BC%89Fast-R-CNN"><span class="toc-text">2）Fast R-CNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%BC%89Faster-R-CNN"><span class="toc-text">3）Faster R-CNN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81One-Stage-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95"><span class="toc-text">三、One-Stage 目标检测算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B0%8F%E7%BB%93"><span class="toc-text">四、小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/04/25/Python%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%8F%AF%E5%8F%98-%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" title="Python传参方式：可变/不可变对象"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/article_img/Python/3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python传参方式：可变/不可变对象"/></a><div class="content"><a class="title" href="/2023/04/25/Python%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%8F%AF%E5%8F%98-%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" title="Python传参方式：可变/不可变对象">Python传参方式：可变/不可变对象</a><time datetime="2023-04-25T05:00:23.000Z" title="发表于 2023-04-25 13:00:23">2023-04-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/24/python%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%9F%A5%E8%AF%86/" title="python学习中遇到的基础不会的知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/article_img/Python/3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python学习中遇到的基础不会的知识"/></a><div class="content"><a class="title" href="/2023/04/24/python%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%9F%A5%E8%AF%86/" title="python学习中遇到的基础不会的知识">python学习中遇到的基础不会的知识</a><time datetime="2023-04-24T15:53:05.000Z" title="发表于 2023-04-24 23:53:05">2023-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/12/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" title="数学建模图像处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/article_img/数学建模/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数学建模图像处理"/></a><div class="content"><a class="title" href="/2023/04/12/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" title="数学建模图像处理">数学建模图像处理</a><time datetime="2023-04-12T15:19:07.000Z" title="发表于 2023-04-12 23:19:07">2023-04-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 小漁头&小戴</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.6/translate/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer src="/js/light.js"></script><canvas id="universe"></canvas><script defer src="/js/starry_sky.js"></script><script defer src="/js/console.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><script async data-pjax src="/js/card_author.js"></script><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"JzK9w99AgP1g6fso",ck:"JzK9w99AgP1g6fso"})</script><script type="text/javascript" src ="/js/reward.js" ></script><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js"></script><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async data-pjax src="/js/txmap.js"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var qweather_key = 'b16a1fa0e63c46a4b8f28abfb06ae3fe';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '113.34532,23.15624';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于Vercel" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于4EVERLAND" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/02/02/论文翻译/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/4.webp" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-02-02</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/02/02/论文翻译/&quot;);" href="javascript:void(0);" alt="">英文水平不高，咋翻译论文？</a><div class="blog-slider__text">英文水平不高，咋翻译论文？</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/02/02/论文翻译/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2022/12/17/博客搭建学习笔记/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/web_background2.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-17</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2022/12/17/博客搭建学习笔记/&quot;);" href="javascript:void(0);" alt="">🐌博客搭建学习笔记</a><div class="blog-slider__text">这是再搭建博客已经写文章时遇到的bug和对博客的一些必要操作，不定时更新哦~</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2022/12/17/博客搭建学习笔记/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/01/20/Butterfly外挂标签/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/9.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-01-20</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/01/20/Butterfly外挂标签/&quot;);" href="javascript:void(0);" alt="">Butterfly外挂标签</a><div class="blog-slider__text">本文是撰写博客文章时可能会用到的外挂标签汇总，放到一起，便于查阅和使用</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/01/20/Butterfly外挂标签/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/01/07/停车场管理模拟系统/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/8.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-01-07</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/01/07/停车场管理模拟系统/&quot;);" href="javascript:void(0);" alt="">停车场管理模拟系统</a><div class="blog-slider__text">本文是大二下学期程序设计与数据结构实训课设，模拟的是一个停车场管理系统，用C和C++语言编写，在此记录一下~</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/01/07/停车场管理模拟系统/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2022/12/09/hello-world/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/1.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-09</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2022/12/09/hello-world/&quot;);" href="javascript:void(0);" alt="">第一篇文章</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2022/12/09/hello-world/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/01/20/erro_spawn_failed/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/7.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-01-20</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/01/20/erro_spawn_failed/&quot;);" href="javascript:void(0);" alt="">Hexo发生error：spawn failed错误的解决方法</a><div class="blog-slider__text">Hexo发生error：spawn failed错误的解决方法</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/01/20/erro_spawn_failed/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/01/06/Hexo博客备份与恢复/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/7.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-01-06</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/01/06/Hexo博客备份与恢复/&quot;);" href="javascript:void(0);" alt="">Hexo博客备份与恢复</a><div class="blog-slider__text">本文旨在解决在不同电脑上都能维护博客或配置、发布的内容丢失可恢复的问题。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/01/06/Hexo博客备份与恢复/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2023/01/24/Echarts社区地址/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picbed.dai2yutou.space/web_img/10.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-01-24</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2023/01/24/Echarts社区地址/&quot;);" href="javascript:void(0);" alt="">Echarts社区地址</a><div class="blog-slider__text">一些Echarts图标的开源网站。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2023/01/24/Echarts社区地址/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '2');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__bounceInRight');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 280px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/about/'|| '/about/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("https://gitcalendar.dai2yutou.space/api?xiaoyutoua",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'xiaoyutoua')
+    }
+  </script><!-- hexo injector body_end end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

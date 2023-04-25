@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新年快乐</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+    <!-- 其实只需要用当前window的事件来设置一个开始的事件。【倒计时时间=过年时间-当前时间】
+
+    设置time为2023年1月1日，添加计时器从当前时间开始， 设置作用时间，将时间进行一个转换为当前的时间，
+    并设置未来的一个时间戳随后定义一个变量来获取倒计时时间是多少。【未来时间-现在的时间】
+    
+    再将获取到的时间毫秒为单位/1000来计算，小时数用总小时数-过去的小时数为现在的小时数，再以60秒为一整份，
+    取余计算得到的就是分钟数在用当前的时间%60就是秒数，最后我们插入想要的信息将上述设置的变量插入进去即可！ -->
+
+
+    <!-- 背景音乐 -->
+    <audio id="bgmusic" src="https://y.qq.com/n/ryqq/player"></audio>
+
+    <h1 id="h1"></h1>
+    <canvas></canvas>
+    <script src="./index.js"></script>
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
