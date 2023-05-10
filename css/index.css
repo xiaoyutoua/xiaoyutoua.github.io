@@ -5954,7 +5954,6 @@ blockquote.pullquote.right {
 /* 关于页面css */
 #site-title{
   display: none;!important;
-  hight: 0;!important;
 }
 #gitzone {
   margin: 0 auto;
