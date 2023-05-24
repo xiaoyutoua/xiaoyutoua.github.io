@@ -5973,9 +5973,9 @@ blockquote.pullquote.right {
   background: transparent !important;
 }
 
-#page:has(#about-page) .page-title {
-  display: none;
-}
+/*#page:has(#about-page) .page-title {*/
+/*  display: none;*/
+/*}*/
 
 .page:has(#about-page) #footer-wrap {
   opacity: 1;
@@ -5998,6 +5998,7 @@ blockquote.pullquote.right {
   overflow: hidden;
   width: 180px;
   height: 180px;
+  margin-bottom: 20px;
 }
 #about-page .author-box .author-img img {
   border-radius: 50%;
@@ -6022,14 +6023,23 @@ blockquote.pullquote.right {
   color: #3eb8be;position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-top: 38px;
+  font-weight: bolder;
+  margin-top: 1rem;
 }
 .author-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  margin-top: 1rem;
+  margin-top:1rem;
+}
+
+.author-content-first{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 4rem;
 }
 
 #about-page .myInfoAndSayHello {
